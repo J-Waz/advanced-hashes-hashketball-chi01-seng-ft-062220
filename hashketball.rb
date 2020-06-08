@@ -157,15 +157,14 @@ def player_numbers(team_name)
   nums
 end
 
-def player_stats(name)
-home = game_hash[:home][:players][name]
-away = game_hash[:away][:players][name]
-
-if home != nil
-  home
- else
-   away
-end
+def player_stats(player_n)
+  game_hash.each do |home_away, keys|
+    keys[:players].each do |player|
+      if player[:player_name] == player_n
+        return player.delete_if { |stat, value| [:player_name].include?(stat)}
+      end
+    end
+  end
 end
 
 def big_shoe_rebounds
